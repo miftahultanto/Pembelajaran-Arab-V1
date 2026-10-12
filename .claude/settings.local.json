@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName.Replace\\(\"D:\\\\Coding\\\\Latihan\\\\\", \"\"\\) })"
+    ]
+  }
+}

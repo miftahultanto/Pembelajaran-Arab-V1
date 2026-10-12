@@ -1,0 +1,1807 @@
+/* ============================================================
+   SISTEM DESAIN — Belajar Bersama
+   Font: Amiri (Arab) + Plus Jakarta Sans (Latin)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Warna brand */
+    --primary-color: #6366f1;
+    --primary-deep: #4f46e5;
+    --secondary-color: #a855f7;
+    --accent-color: #ec4899;
+    --bg-color: #f6f7fb;
+    --text-color: #0f172a;
+    --text-light: #64748b;
+    --card-bg: #ffffff;
+    --border-soft: #eef0f8;
+
+    /* Gradien brand */
+    --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --gradient-soft: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.12));
+
+    /* Bayangan lembut berlapis */
+    --shadow: 0 4px 24px -6px rgba(15, 23, 42, 0.08), 0 2px 8px -4px rgba(15, 23, 42, 0.04);
+    --shadow-lg: 0 24px 48px -16px rgba(79, 70, 229, 0.22), 0 8px 16px -8px rgba(15, 23, 42, 0.08);
+
+    /* Kurva transisi halus */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px; /* anchor tidak tertutup navbar */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Seleksi teks & fokus aksesibel */
+::selection {
+    background: #c7d2fe;
+    color: #1e1b4b;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+label.quiz-option:focus-within {
+    outline: 3px solid rgba(99, 102, 241, 0.45);
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+/* Scrollbar kustom */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #eef0f8;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#818cf8, #c084fc);
+    border-radius: 999px;
+    border: 2px solid #eef0f8;
+}
+
+/* ============================================================
+   NAVBAR — kaca buram modern
+   ============================================================ */
+.navbar {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    padding: 1rem 2rem;
+    box-shadow: 0 1px 0 rgba(99, 102, 241, 0.08), 0 8px 32px -12px rgba(15, 23, 42, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Memaksa area logo dan tombol mengambil porsi yang sama,
+   sehingga bagian .nav-links terdorong sempurna ke tengah */
+.logo {
+    flex: 1;
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Amiri', serif;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo i {
+    -webkit-text-fill-color: var(--primary-color);
+    filter: drop-shadow(0 2px 6px rgba(99, 102, 241, 0.35));
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.25rem;
+    list-style: none;
+    justify-content: center;
+    flex: 2;
+    font-family: 'Amiri', serif;
+}
+
+/* Mengatur agar tombol login mentok ke kanan */
+.navbar-container .btn-login,
+.navbar-container div:last-child {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--gradient);
+    border-radius: 999px;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 1.25rem;
+        flex-direction: column;
+        gap: 1rem;
+        box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.15);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    transition: color 0.3s var(--ease);
+    position: relative;
+    padding-bottom: 4px;
+}
+
+/* Garis bawah animasi dari tengah */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    background: var(--gradient);
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s var(--ease);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Menu aktif (terpilih) — tetap tersorot meski kursor berpindah */
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.nav-links a.active::after {
+    transform: scaleX(1);
+    height: 3px;
+}
+
+/* Sembunyikan tombol login (tidak dipakai lagi) */
+.btn-login,
+.nav-links .btn-login,
+.navbar-container .btn-login,
+.navbar-container div:last-child {
+    display: none;
+}
+
+/* ============================================================
+   HERO — foto dengan lapisan gradien bertingkat
+   ============================================================ */
+.hero {
+    /* Lapisan: sorotan ungu + gelap agar teks terbaca + foto */
+    background-image:
+        radial-gradient(1100px 520px at 75% 15%, rgba(168, 85, 247, 0.4), transparent 62%),
+        radial-gradient(800px 420px at 15% 85%, rgba(99, 102, 241, 0.35), transparent 60%),
+        linear-gradient(160deg, rgba(15, 23, 42, 0.78) 0%, rgba(67, 56, 202, 0.6) 100%),
+        url('../images/1098033952929674237.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    padding: 120px 50px 70px;
+    min-height: 85vh;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Garis dekoratif halus di dasar hero */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient);
+    opacity: 0.85;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2.5rem;
+    background: rgba(15, 23, 42, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow: 0 32px 64px -24px rgba(0, 0, 0, 0.45);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 20%, #ddd6fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Amiri', serif;
+    text-shadow: none;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.75;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transition: all 0.35s var(--ease);
+    font-family: 'Amiri', serif;
+    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.24);
+    box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.35);
+}
+
+/* Hero Image */
+.hero-img {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+}
+
+.hero-img svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.2));
+}
+
+/* ============================================================
+   HEADER HALAMAN MATERI (vocab-hero)
+   ============================================================ */
+.vocab-hero {
+    background:
+        radial-gradient(700px 320px at 85% 0%, rgba(236, 72, 153, 0.28), transparent 60%),
+        radial-gradient(600px 300px at 10% 100%, rgba(99, 102, 241, 0.4), transparent 60%),
+        linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #a855f7 100%);
+    padding: 8.5rem 2rem 4.5rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Garis gradien di dasar header */
+.vocab-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ec4899, #a855f7, #6366f1);
+}
+
+.vocab-hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.vocab-hero h1 {
+    font-size: 3.125rem;
+    font-weight: 800;
+    margin: 1.1rem 0;
+    font-family: 'Amiri', serif;
+    background: linear-gradient(135deg, #ffffff 30%, #e9d5ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.vocab-hero p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.75;
+}
+
+.btn-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transition: all 0.35s var(--ease);
+    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.25);
+}
+
+.btn-return:hover {
+    background: rgba(255, 255, 255, 0.26);
+    transform: translateY(-3px);
+}
+
+/* ============================================================
+   JUDUL SECTION & TAG
+   ============================================================ */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-tag {
+    display: inline-block;
+    padding: 0.5rem 1.4rem;
+    background: var(--gradient);
+    color: white;
+    border-radius: 999px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 24px -10px rgba(99, 102, 241, 0.55);
+    font-family: 'Amiri', serif;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Amiri', serif;
+    color: var(--text-color);
+}
+
+/* ============================================================
+   COURSES
+   ============================================================ */
+.courses {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+}
+
+.course-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Link yang membungkus seluruh isi kartu kursus */
+.course-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.course-link:hover {
+    color: inherit;
+}
+
+.course-image {
+    height: 190px;
+    background: linear-gradient(135deg, #eef2ff, #faf5ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Kilau halus pada area gambar */
+.course-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px 160px at 80% 0%, rgba(168, 85, 247, 0.12), transparent 70%);
+}
+
+.course-image img {
+    position: relative;
+    z-index: 1;
+}
+
+.course-image i {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.course-info {
+    padding: 1.6rem 1.6rem 1.5rem;
+}
+
+.course-info h3 {
+    font-size: 1.375rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-family: 'Amiri', serif;
+}
+
+.course-info p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.course-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-soft);
+}
+
+.course-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.course-meta span i {
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    font-family: 'Amiri', serif;
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 2.25rem 1.5rem;
+    border-radius: 20px;
+    transition: background-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.feature-card:hover {
+    background: var(--gradient-soft);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+}
+
+/* Link yang membungkus seluruh isi kartu fitur */
+.feature-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.feature-link:hover {
+    color: inherit;
+}
+
+.feature-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 1.1rem;
+    background: var(--gradient-soft);
+    border: 1px solid rgba(99, 102, 241, 0.16);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.feature-card:hover .feature-icon,
+.about-card:hover .feature-icon {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 12px 24px -10px rgba(99, 102, 241, 0.45);
+}
+
+.feature-icon i {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+/* Warna brand untuk ikon sosial media */
+.feature-icon .fa-instagram {
+    color: #E1306C;
+}
+
+.feature-icon .fa-youtube {
+    color: #FF0000;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Amiri', serif;
+}
+
+.about-intro {
+    max-width: 700px;
+    margin: 1rem auto 0;
+    color: var(--text-light);
+    font-size: 1.125rem;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.about-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2.25rem 1.75rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    border-bottom: 4px solid transparent;
+    background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--gradient);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.about-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.about-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-family: 'Amiri', serif; /* Judul Arab di kartu selaras dengan font Amiri */
+}
+
+.about-card p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   KOSAKATAN — kartu
+   ============================================================ */
+.vocab-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4.5rem 2rem;
+}
+
+.vocab-group {
+    margin-bottom: 4.5rem;
+}
+
+.vocab-group .section-header h2 {
+    font-family: 'Amiri', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.vocab-group .section-header h2 i {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.75rem;
+}
+
+.vocab-group-desc {
+    color: var(--text-light);
+    font-size: 1.125rem;
+}
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.1rem;
+    margin-top: 2rem;
+}
+
+.vocab-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.6rem 1rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    overflow: hidden;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+/* Pita gradien di bawah kartu */
+.vocab-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+}
+
+.vocab-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.vocab-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--text-color);
+    direction: rtl;
+}
+
+.vocab-latin {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.vocab-id {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-soft);
+}
+
+.vocab-footer-nav {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.vocab-footer-nav .btn-primary {
+    background: var(--gradient);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    backdrop-filter: none;
+    box-shadow: 0 12px 28px -10px rgba(99, 102, 241, 0.55);
+}
+
+.vocab-footer-nav .btn-primary:hover {
+    background: var(--gradient);
+    filter: brightness(1.08);
+    box-shadow: 0 16px 36px -10px rgba(99, 102, 241, 0.65);
+}
+
+/* ============================================================
+   KARTU PEMILIHAN LEVEL
+   ============================================================ */
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2rem;
+}
+
+.level-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    background-color: var(--card-bg);
+    border-radius: 22px;
+    padding: 2.75rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+/* Pita gradien di puncak kartu */
+.level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient);
+}
+
+.level-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    color: inherit;
+}
+
+.level-basic::before {
+    background: linear-gradient(90deg, #22c55e, #86efac);
+}
+
+.level-medium::before {
+    background: linear-gradient(90deg, #f59e0b, #fcd34d);
+}
+
+.level-advanced::before {
+    background: linear-gradient(90deg, #ef4444, #fca5a5);
+}
+
+.level-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.9rem;
+    color: var(--primary-color);
+    transition: transform 0.35s var(--ease);
+}
+
+.level-card:hover .level-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+.level-basic .level-icon {
+    background-color: #f0fdf4;
+    color: #16a34a;
+}
+
+.level-medium .level-icon {
+    background-color: #fffbeb;
+    color: #d97706;
+}
+
+.level-advanced .level-icon {
+    background-color: #fef2f2;
+    color: #dc2626;
+}
+
+.level-badge {
+    display: inline-block;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: 'Amiri', serif;
+    color: white;
+    background: var(--gradient);
+    box-shadow: 0 8px 20px -8px rgba(99, 102, 241, 0.5);
+}
+
+.level-basic .level-badge {
+    background: linear-gradient(135deg, #16a34a, #4ade80);
+    box-shadow: 0 8px 20px -8px rgba(22, 163, 74, 0.5);
+}
+
+.level-medium .level-badge {
+    background: linear-gradient(135deg, #d97706, #fbbf24);
+    box-shadow: 0 8px 20px -8px rgba(217, 119, 6, 0.5);
+}
+
+.level-advanced .level-badge {
+    background: linear-gradient(135deg, #dc2626, #f87171);
+    box-shadow: 0 8px 20px -8px rgba(220, 38, 38, 0.5);
+}
+
+.level-card h3 {
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.level-card p {
+    color: var(--text-light);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+}
+
+.level-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* ============================================================
+   BACAAN — daftar kalimat bernomor
+   ============================================================ */
+.reading-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.reading-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.3rem 1.6rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+/* Pita gradien di sisi kanan */
+.reading-item::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    right: 0;
+    width: 4px;
+    border-radius: 999px;
+    background: var(--gradient);
+}
+
+.reading-item:hover {
+    transform: translateX(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.reading-number {
+    min-width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: var(--gradient);
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px -8px rgba(99, 102, 241, 0.5);
+}
+
+.reading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.reading-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    direction: rtl;
+    text-align: right;
+}
+
+.reading-id {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+/* ============================================================
+   DIALOG — gelembung percakapan
+   ============================================================ */
+.dialogue {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dialogue-line {
+    max-width: 78%;
+    padding: 1.1rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid transparent;
+    transition: transform 0.3s var(--ease);
+}
+
+.dialogue-line:hover {
+    transform: translateY(-2px);
+}
+
+.dialogue-line.seller {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border-color: rgba(99, 102, 241, 0.15);
+    border-bottom-left-radius: 6px;
+}
+
+.dialogue-line.buyer {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+    border-color: rgba(236, 72, 153, 0.15);
+    border-bottom-right-radius: 6px;
+}
+
+.dialogue-speaker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    letter-spacing: 0.03em;
+}
+
+.dialogue-line.buyer .dialogue-speaker {
+    color: var(--accent-color);
+}
+
+.dialogue-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text-color);
+    direction: rtl;
+    text-align: right;
+    margin-bottom: 0.25rem;
+}
+
+.dialogue-id {
+    color: var(--text-light);
+    font-size: 0.9375rem;
+}
+
+/* ============================================================
+   BACAAN PANJANG (passage)
+   ============================================================ */
+.reading-passage {
+    margin-top: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2.75rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sorotan gradien lembut di pojok */
+.reading-passage::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.1), transparent 70%);
+    pointer-events: none;
+}
+
+.passage-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.65rem;
+    line-height: 2.3;
+    color: var(--text-color);
+    direction: rtl;
+    text-align: right;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.passage-translation {
+    background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+    border-radius: 16px;
+    padding: 1.6rem;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.passage-translation h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.passage-translation h4 i {
+    -webkit-text-fill-color: var(--primary-color);
+}
+
+.passage-translation p {
+    color: var(--text-light);
+    line-height: 1.85;
+}
+
+/* ============================================================
+   KUIS / LATIHAN
+   ============================================================ */
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    margin-top: 2rem;
+}
+
+.quiz-question {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.6rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-soft);
+    border-right: 4px solid #c7d2fe;
+    transition: border-color 0.3s ease, box-shadow 0.3s var(--ease);
+}
+
+.quiz-question.correct {
+    border-right-color: #16a34a;
+    box-shadow: 0 12px 28px -14px rgba(22, 163, 74, 0.35);
+}
+
+.quiz-question.wrong,
+.quiz-question.missed {
+    border-right-color: #dc2626;
+    box-shadow: 0 12px 28px -14px rgba(220, 38, 38, 0.3);
+}
+
+.quiz-q {
+    font-size: 1.15rem;
+    margin-bottom: 1.1rem;
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+.quiz-num {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    margin-left: 0.35rem;
+}
+
+.quiz-hint {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+
+.quiz-option {
+    display: block;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.55rem;
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+    font-size: 1rem;
+    background: var(--card-bg);
+}
+
+.quiz-option:last-child {
+    margin-bottom: 0;
+}
+
+.quiz-option:hover {
+    border-color: var(--primary-color);
+    background: var(--gradient-soft);
+    transform: translateX(-4px);
+}
+
+.quiz-option input {
+    margin-right: 0.5rem;
+    accent-color: var(--primary-color);
+}
+
+.quiz-option.correct {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    color: #166534;
+    font-weight: 600;
+}
+
+.quiz-option.correct::after {
+    content: ' ✓';
+    color: #16a34a;
+}
+
+.quiz-option.wrong {
+    border-color: #dc2626;
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    color: #991b1b;
+}
+
+.quiz-option.wrong::after {
+    content: ' ✗';
+    color: #dc2626;
+}
+
+/* Aksi kuis */
+.quiz-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.quiz-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 999px;
+    box-shadow: 0 12px 28px -10px rgba(99, 102, 241, 0.55);
+}
+
+.quiz-check:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -10px rgba(99, 102, 241, 0.65);
+}
+
+.btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s var(--ease);
+}
+
+.btn-reset:hover {
+    background: var(--gradient);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+/* Kotak skor */
+.quiz-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding: 1.6rem;
+    border-radius: 16px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.quiz-score.perfect {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    color: #166534;
+    border: 2px solid #16a34a;
+}
+
+.quiz-score.good {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    color: #3730a3;
+    border: 2px solid var(--primary-color);
+}
+
+.quiz-score.low {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    color: #991b1b;
+    border: 2px solid #dc2626;
+}
+
+/* Konsistensi font Amiri untuk semua teks Arab di halaman materi */
+.section-tag,
+.dialogue-speaker,
+.quiz-q,
+.quiz-option {
+    font-family: 'Amiri', serif;
+}
+
+/* ============================================================
+   FOOTER — gradasi gelap elegan
+   ============================================================ */
+footer {
+    background:
+        radial-gradient(700px 300px at 85% 0%, rgba(99, 102, 241, 0.18), transparent 65%),
+        linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+    color: #94a3b8;
+    padding: 3.5rem 2rem 1.25rem;
+    font-family: 'Amiri', serif;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.25rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: white;
+}
+
+.footer-logo i {
+    color: #818cf8;
+    filter: drop-shadow(0 2px 8px rgba(129, 140, 248, 0.5));
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links h4 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #a5b4fc;
+    transform: translateX(-3px);
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 100px 24px 56px;
+        min-height: 75vh;
+    }
+
+    .hero-content {
+        padding: 1.75rem;
+        border-radius: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.4rem;
+    }
+
+    .vocab-hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+    }
+
+    .section-tag {
+        font-size: 1.4rem;
+    }
+
+    .dialogue-line {
+        max-width: 92%;
+    }
+
+    .reading-passage {
+        padding: 1.75rem;
+    }
+}
+
+/* ============================================================
+   PEMUTAR MUSIK LATAR — kartu playlist mengambang
+   ============================================================ */
+.music-player {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    z-index: 999;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.music-card {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform-origin: bottom right;
+    animation: mp-rise 0.5s var(--ease);
+}
+
+@keyframes mp-rise {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Kepala kartu */
+.music-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem 0.6rem;
+    position: relative;
+}
+
+.music-cover {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    background: var(--gradient);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 8px 20px -8px rgba(99, 102, 241, 0.55);
+    transition: transform 0.6s var(--ease);
+}
+
+/* Cover berputar saat musik bermain */
+.music-player.playing .music-cover {
+    animation: mp-spin 4s linear infinite;
+}
+
+@keyframes mp-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.music-now {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.music-title {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-artist {
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* Equalizer animasi */
+.music-eq {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 22px;
+    margin-left: auto;
+    margin-right: 1.4rem;
+}
+
+.music-eq span {
+    width: 3.5px;
+    height: 30%;
+    border-radius: 999px;
+    background: var(--gradient);
+    animation: mp-eq 0.9s ease-in-out infinite;
+    animation-play-state: paused;
+    opacity: 0.45;
+}
+
+.music-player.playing .music-eq span {
+    animation-play-state: running;
+    opacity: 1;
+}
+
+.music-eq span:nth-child(1) { animation-delay: 0s; }
+.music-eq span:nth-child(2) { animation-delay: 0.2s; }
+.music-eq span:nth-child(3) { animation-delay: 0.4s; }
+.music-eq span:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes mp-eq {
+    0%, 100% { height: 25%; }
+    50%      { height: 100%; }
+}
+
+/* Tombol collapse */
+.mp-collapse {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.45rem;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.65rem !important;
+    color: var(--text-light) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Kontrol */
+.music-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1rem 0.5rem;
+}
+
+.mp-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s var(--ease);
+}
+
+.mp-btn:hover {
+    background: var(--gradient-soft);
+    color: var(--primary-color);
+    transform: scale(1.08);
+}
+
+.mp-play {
+    width: 48px;
+    height: 48px;
+    font-size: 1.05rem;
+    background: var(--gradient);
+    color: white;
+    box-shadow: 0 10px 24px -8px rgba(99, 102, 241, 0.6);
+}
+
+.mp-play:hover {
+    background: var(--gradient);
+    color: white;
+    filter: brightness(1.08);
+    transform: scale(1.1);
+}
+
+.mp-list-toggle.active {
+    background: var(--gradient);
+    color: white;
+}
+
+/* Volume */
+.music-volume {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0 1.15rem 0.55rem;
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
+.music-volume input[type='range'] {
+    flex: 1;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    border-radius: 999px;
+    cursor: pointer;
+    outline: none;
+}
+
+.music-volume input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+.music-volume input[type='range']::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--primary-color);
+}
+
+/* Daftar lagu */
+.music-list {
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease);
+    border-top: 1px solid transparent;
+}
+
+.music-list.open {
+    max-height: 180px;
+    overflow-y: auto;
+    border-top-color: var(--border-soft);
+}
+
+.music-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.music-item:hover {
+    background: var(--gradient-soft);
+    color: var(--text-color);
+}
+
+.music-item.active {
+    color: var(--primary-color);
+    font-weight: 700;
+    background: var(--gradient-soft);
+}
+
+.music-item-num {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 8px;
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.music-item.active .music-item-num {
+    background: var(--gradient);
+    color: white;
+}
+
+.music-item-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tombol mini (saat card diciutkan) */
+.music-mini {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s var(--ease);
+    animation: mp-pulse 2.2s ease-in-out infinite;
+}
+
+.music-mini:hover {
+    transform: scale(1.12);
+}
+
+.music-player.playing .music-mini {
+    animation: none;
+}
+
+@keyframes mp-pulse {
+    0%, 100% { box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.6), 0 0 0 0 rgba(99, 102, 241, 0.35); }
+    50%      { box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.6), 0 0 0 12px rgba(99, 102, 241, 0); }
+}
+
+/* Responsif HP */
+@media (max-width: 480px) {
+    .music-player {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .music-card {
+        width: min(300px, calc(100vw - 24px));
+    }
+}

@@ -2,20 +2,23 @@
    Widget Pemutar Musik Latar — "Belajar Bersama"
    Dibuat otomatis di setiap halaman tanpa perlu edit HTML.
 
-   CATATAN: Daftar lagu di bawah memakai lagu instrumental demo
-   GRATIS dari SoundHelix (https://www.soundhelix.com) sebagai
-   placeholder. Untuk memakai lagu Anda sendiri, letakkan file
-   mp3 di folder audio/ lalu ganti nilai `src` di bawah, misal:
-       src: 'audio/lagu-1.mp3'
+   THEME: Nada latar bernuansa Arab untuk menemani belajar
+   bahasa Arab.
+
+   CARA PAKAI:
+   - File lagu berada di folder  music/  (music-1.mp3, dst.)
+   - Ganti / tambah lagu dengan menyesuaikan array PLAYLIST di
+     bawah ini (sesuaikan nilai `src` dengan nama file di folder
+     music/).
    ============================================================ */
 (function () {
     'use strict';
 
-    /* ===== Daftar lagu (playlist) ===== */
+    /* ===== Daftar lagu (playlist bernuansa Arab) ===== */
     var PLAYLIST = [
-        { title: 'Lembut Pagi',   artist: 'SoundHelix', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-        { title: 'Senja di Pasar', artist: 'SoundHelix', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-        { title: 'Langkah Pasti',  artist: 'SoundHelix', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' }
+        { title: 'طَيِّبَة (Thayyibah)', artist: 'Nada Latar Arab', src: 'music/music-1.mp3' },
+        { title: 'السُّوق (As-Sūq)',      artist: 'Nada Latar Arab', src: 'music/music-2.mp3' },
+        { title: 'الْقَمَر (Al-Qamar)',    artist: 'Nada Latar Arab', src: 'music/music-3.mp3' }
     ];
 
     /* ===== Bangun elemen widget ===== */
